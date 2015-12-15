@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/base.js"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+    canvas {
+        border: 1px solid #000;
+        background: #ddd;
+        margin-left: 100px;
+        margin-top: 30px;
+    }
+</style>
+
+<body>
+    <canvas id="mycanvas" width="1000" height="800">
+        您的浏览器不支持canvas！
+    </canvas>
+</body>
+<script type="text/javascript">
+</script>
+
+
+<div id="tmp">asdf</div>
+<script>
+    var canvas = document.getElementById('mycanvas');
+    var space = 5;
+    var ftps = 20000;
+    var context = canvas.getContext('2d');
+
+    //    绘制正三角形
+    //    根据两点坐标求第三点坐标
+
+    //    角度转弧度
+    function toRadian(deg) {
+        return 2 * Math.PI / 360 * Number(deg);
+    }
+
+    //    返回第三点对象
+    function triangle(ax, ay, bx, by) {
+        return {
+            x: (bx - ax) * Math.cos(toRadian(-60)) - (by - ay) * Math.sin(toRadian(-60)) + ax,
+            y: (by - ay) * Math.cos(toRadian(-60)) + (bx - ax) * Math.sin(toRadian(-60)) + ay
+        }
+    }
+    //    求中点坐标
+    function getMiddle(ax, ay, bx, by) {
+        return {
+            x: (ax + bx) / 2,
+            y: (ay + by) / 2
+        }
+    }
+    //    context.beginPath();
+    //    context.moveTo(0, 0);
+    //    context.lineTo(12, 62);
+    //    context.lineTo(22, 222);
+    //    context.lineTo(600, 600);
+    //    context.lineWidth = 20;
+    //    context.stroke();
+
+    var tmp = 0;
+    //    默认样式
+    context.moveTo(150 + tmp, 150 + tmp);
+    context.lineTo(250 + tmp, 150 + tmp);
+    var poitC = triangle(150 + tmp, 150 + tmp, 250 + tmp, 150 + tmp);
+    context.lineTo(poitC.x, poitC.y);
+    context.closePath();
+    context.lineWidth = 20;
+    context.stroke();
+
+    tmp = 150;
+    context.moveTo(150 + tmp, 150);
+    context.lineTo(250 + tmp, 150);
+    poitC = triangle(150 + tmp, 150, 250 + tmp, 150);
+    context.lineTo(poitC.x, poitC.y);
+    context.lineJoin = 'bevel';
+    context.closePath();
+    context.lineWidth = 20;
+    context.stroke();
+
+    tmp = 300;
+    context.beginPath();
+    context.moveTo(150 + tmp, 150);
+    context.lineTo(250 + tmp, 150);
+    poitC = triangle(150 + tmp, 150, 250 + tmp, 150);
+    context.lineTo(poitC.x, poitC.y);
+    context.lineJoin = 'round';
+    context.closePath();
+    context.lineWidth = 20;
+    context.stroke();
+
+    tmp = 450;
+    context.beginPath();
+    context.moveTo(150 + tmp, 50);
+    context.lineTo(250 + tmp, 50);
+    context.lineCap = 'butt';
+    context.stroke();
+
+    tmp = 450;
+    context.beginPath();
+    context.moveTo(150 + tmp, 100);
+    context.lineTo(250 + tmp, 100);
+    context.lineCap = 'round';
+    context.stroke();
+
+    tmp = 450;
+    context.beginPath();
+    context.moveTo(150 + tmp, 150);
+    context.lineTo(250 + tmp, 150);
+    context.lineCap = 'square';
+    context.stroke();
+</script>
+
+
+
+
+
+
+
+
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <script src="../jquery/jquery-1.8.1.min.js"></script>
+</head>
+
+<body>
+    <canvas id="mycanvas" width="1000" height="800">
+        您的浏览器不支持canvas！
+    </canvas>
+
+</body>
+<script type="text/javascript">
+    var tmp = document.getElementById('tmp');
+    var ee = document.createElement('input');
+    ee.type = 'button';
+    ee.value = 'ddd';
+    var object = tmp.appendChild(ee);
+</script>
+
+
+<div id="tmp">asdf</div>
+<script>
+    var canvas = document.getElementById('mycanvas');
+    var space = 5;
+    var ftps = 200;
+    if (canvas.getContext) var ctx = canvas.getContext('2d');
+    //    alert(ctx)
+    ctx.lineWidth = 2;
+
+    //    ctx.beginPath();
+    //    ctx.moveTo(10,100);
+    //    ctx.lineTo(10,200);
+    //    ctx.stroke();
+    function drawLine(x0, y0, x1, y1) {
+
+        ctx.lineWidth = Math.random() * 30;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(x0, y0);
+        ctx.lineTo(x1, y1);
+        ctx.stroke();
+    }
+    drawLine(0, 0, 10, 10);
+    //alert(canvas.width);
+    var lineArr = [];
+    var x0 = 0,
+        y0 = 0,
+        x1 = 0,
+        y1 = 0;
+    // alert(typeof canvas.width);
+    function cshLineArr() {
+        lineArr = [];
+        x0 = 0;
+        y0 = 0;
+        x1 = 0;
+        y1 = 0;
+        for (var j = 0; j < 200; j++) {
+            //alert(lineArr);
+            x0 = Math.floor(Math.random() * canvas.width);
+            y0 = j * (ctx.lineWidth + space);
+            x1 = Math.floor(Math.random() * canvas.width);
+            y1 = j * (ctx.lineWidth + space);
+            // alert(x0);
+            lineArr[j] = [];
+            lineArr[j]['x0'] = x0;
+            lineArr[j]['y0'] = y0;
+            lineArr[j]['x1'] = x1;
+            lineArr[j]['y1'] = y1;
+        }
+    }
+
+    function drawAll() {
+        cshLineArr();
+        for (var i = 0; i < lineArr.length; i++) {
+            drawLine(lineArr[i]['x0'], lineArr[i]['y0'], lineArr[i]['x1'], lineArr[i]['y1']);
+        }
+    }
+    setInterval(function () {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawAll();
+    }, ftps)
+
+
+    //alert(lineArr);
+</script>
+
+</html>
